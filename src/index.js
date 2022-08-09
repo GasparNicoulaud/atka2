@@ -1,49 +1,20 @@
 import * as THREE from 'three'
 import { Mesh } from 'three'
 import ReactDOM from 'react-dom'
-import React, { useRef, useMemo, useState, useEffect, Suspense } from 'react'
+import React, { useMemo, useState, Suspense } from 'react'
 import { Canvas, useFrame, useLoader } from 'react-three-fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-//import {GradientColor} from '@react-three/drei'
-import niceColors from 'nice-color-palettes'
 import Effects from './Effects'
 import './styles.css'
-
-
-function Part(props) {
-  const obj = useLoader(OBJLoader, props.file)
-  const mat = new THREE.MeshBasicMaterial()
-  mat.color = new THREE.Color('#28af69')
-  mat.opacity = Math.abs(Math.sin(props.frame * 0.09)) * 0.5 + 0.2
-  if (obj) {
-    obj.traverse((child) => {
-      if (child instanceof Mesh) {
-        //child.material = mat;
-      }
-    })
-  }
-  const rotX = props.mouseX * 0.001 + props.frame * 0.008
-  const rotY = props.mouseY * 0.001 + props.frame * 0.012
-  return (
-    <>
-      <primitive
-        position={[-0.02 * props.mouseX + 3, -0.02 * props.mouseX + 3, -0.02 * props.mouseX + 3]}
-        rotation={[rotX, rotY, 0]}
-        scale={1.5}
-        object={obj}
-      />
-    </>
-  )
-}
 
 function Model(props) {
   const [obj, set] = useState()
   useMemo(() => new OBJLoader().load(props.url, set), [props.url])
   const mat = new THREE.MeshBasicMaterial()
   mat.color = new THREE.Color('#4BE9D8')
-  mat.opacity = 0.7
+  mat.opacity = 0.6
   mat.transparent = true
-  mat.depthWrite = false;
+  mat.depthTest = false;
   if (obj) {
     obj.traverse((child) => {
       if (child instanceof Mesh) {
@@ -66,14 +37,18 @@ function Boxes() {
 
   const position = useMousePosition();
 
+  const colors = useLoader(THREE.TextureLoader, "gradientv3.png");
+
   const mat = new THREE.MeshPhongMaterial()
   mat.color = new THREE.Color('#4BE9D8')
-  mat.opacity = 0.1
+  mat.opacity = 0.2
   mat.transparent = true
+  mat.depthTest = false;
   mat.depthWrite = false;
+  mat.map = colors;
   return (
     <>
-      <Model url="/modelv6.obj" position={[0, 0, -1]} rotation={[time*0.1 + position.x * 0.001, time*-0.2 + position.y * 0.001, 0]}/>
+      <Model url="/modelv7.obj" position={[0, 0, -1]} rotation={[time*0.1 + position.x * 0.001, time*-0.2 + position.y * 0.001, 0]}/>
       <mesh position={[0, 0, -1]} rotation={[time*0.1 + position.x * 0.001, time*-0.2 + position.y * 0.001, 0]} material={mat}>
         <icosahedronGeometry attach="geometry" detail={0}/>
       </mesh>

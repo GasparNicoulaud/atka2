@@ -13,8 +13,8 @@ extend({ EffectComposer, ShaderPass, RenderPass, SSAOPass, UnrealBloomPass, Boke
 export default function Effects() {
   const composer = useRef()
   const { scene, gl, size, camera } = useThree()
-  const params = useMemo(() => ({ focus: 4, aperture: 0.01, maxblur: 0.01 }), [])
-  useEffect(() => void composer.current.setSize(size.width * 4, size.height * 4), [size])
+  const params = useMemo(() => ({ focus: 3.2, aperture: 0.04, maxblur: 0.015 }), [])
+  useEffect(() => void composer.current.setSize(size.width * 2, size.height * 2), [size])
   useFrame(() => composer.current.render(), 2)
   return (
     <effectComposer ref={composer} args={[gl]}>
