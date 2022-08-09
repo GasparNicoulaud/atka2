@@ -13,8 +13,8 @@ extend({ EffectComposer, ShaderPass, RenderPass, SSAOPass, UnrealBloomPass, Boke
 export default function Effects() {
   const composer = useRef()
   const { scene, gl, size, camera } = useThree()
-  const params = useMemo(() => ({ focus: 1.0, aperture: 0.02, maxblur: 0.013 }), [])
-  useEffect(() => void composer.current.setSize(size.width, size.height), [size])
+  const params = useMemo(() => ({ focus: 4, aperture: 0.01, maxblur: 0.01 }), [])
+  useEffect(() => void composer.current.setSize(size.width * 4, size.height * 4), [size])
   useFrame(() => composer.current.render(), 2)
   return (
     <effectComposer ref={composer} args={[gl]}>
@@ -22,7 +22,7 @@ export default function Effects() {
       <shaderPass
         attachArray="passes"
         args={[FXAAShader]}
-        material-uniforms-resolution-value={[1 / size.width, 1 / size.height]}
+        material-uniforms-resolution-value={[0.25 / size.width, 0.25 / size.height]}
         renderToScreen
       />
       <bokehPass attachArray="passes" args={[scene, camera, params]} />

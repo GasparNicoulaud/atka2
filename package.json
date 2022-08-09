@@ -1,10 +1,11 @@
 {
-  "name": "essai-flou",
+  "name": "atka",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@react-three/drei": "^9.19.7",
     "@react-three/fiber": "8.3.0",
     "nice-color-palettes": "3.0.0",
     "react": "16.13.1",
@@ -13,7 +14,6 @@
     "react-three-fiber": "4.1.1",
     "three": "0.115.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
