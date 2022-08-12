@@ -12,7 +12,7 @@ function Model(props) {
   useMemo(() => new OBJLoader().load(props.url, set), [props.url])
   const mat = new THREE.MeshBasicMaterial()
   mat.color = new THREE.Color('#4BE9D8')
-  mat.opacity = 0.4
+  mat.opacity = 0.6
   mat.transparent = true
   mat.depthTest = false
   if (obj) {
