@@ -14,7 +14,7 @@ function Model(props) {
   mat.color = new THREE.Color('#4BE9D8')
   mat.opacity = 0.4
   mat.transparent = true
-  mat.depthTest = false;
+  mat.depthTest = false
   if (obj) {
     obj.traverse((child) => {
       if (child instanceof Mesh) {
