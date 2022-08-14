@@ -89,7 +89,9 @@ function FullModel() {
   }
 
   const mats = []
-  const colors = useLoader(THREE.TextureLoader, "grad2.png");
+  //const colors = useLoader(THREE.TextureLoader, "grad2.png");
+  const colors = useMemo(() => new THREE.TextureLoader().load('grad2.png'), [])
+
 
   for(i=0; i< faces.length; i++){
     mats[i] = new THREE.MeshBasicMaterial()
@@ -113,7 +115,7 @@ function FullModel() {
 
   return (
     <>
-      <Model url="/modelv7.obj" 
+      <Model url="modelv7.obj" 
         position={modelPosition} 
         rotation={modelRotation}
       />

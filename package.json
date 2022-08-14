@@ -5,11 +5,8 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "@react-three/drei": "^9.19.7",
-    "@react-three/fiber": "8.3.0",
-    "nice-color-palettes": "3.0.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-scripts": "3.4.1",
     "react-three-fiber": "4.1.1",
     "three": "0.115.0"

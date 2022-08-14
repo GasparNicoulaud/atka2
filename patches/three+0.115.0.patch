@@ -1,13 +1,12 @@
 diff --git a/node_modules/three/examples/jsm/shaders/BokehShader.js b/node_modules/three/examples/jsm/shaders/BokehShader.js
-index 83a2566..f538359 100644
+index 83a2566..d4c5732 100644
 --- a/node_modules/three/examples/jsm/shaders/BokehShader.js
 +++ b/node_modules/three/examples/jsm/shaders/BokehShader.js
-@@ -139,7 +139,7 @@ var BokehShader = {
+@@ -139,7 +139,6 @@ var BokehShader = {
  		"	col += texture2D( tColor, vUv.xy + ( vec2(  0.0,   0.4  ) * aspectcorrect ) * dofblur4 );",
  
  		"	gl_FragColor = col / 41.0;",
 -		"	gl_FragColor.a = 1.0;",
-+		//"	gl_FragColor.a = 1.0;",
  
  		"}"
  
