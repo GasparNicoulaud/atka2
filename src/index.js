@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { Mesh } from 'three'
 import ReactDOM from 'react-dom'
 import React, { useMemo, useState, Suspense } from 'react'
-import { Canvas, useFrame, useLoader } from 'react-three-fiber'
+import { Canvas, useFrame } from 'react-three-fiber'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import Effects from './Effects'
 import './styles.css'
@@ -63,38 +63,59 @@ function FullModel() {
   // create triangles from vertices
   const faces = []
 
-  faces[0] = new THREE.BufferGeometry().setFromPoints([_0m1phi,_m1mphi0,_1mphi0]);
-  faces[1] = new THREE.BufferGeometry().setFromPoints([_0m1mphi,_1mphi0,_m1mphi0]);
-  faces[2] = new THREE.BufferGeometry().setFromPoints([_0m1mphi,_m1mphi0,_mphi0m1]);
-  faces[3] = new THREE.BufferGeometry().setFromPoints([_0m1mphi,_mphi0m1,_01mphi]);
-  faces[4] = new THREE.BufferGeometry().setFromPoints([_0m1mphi,_01mphi,_phi0m1]);
-  faces[5] = new THREE.BufferGeometry().setFromPoints([_mphi0m1,_m1phi0,_01mphi]);
-  faces[6] = new THREE.BufferGeometry().setFromPoints([_mphi0m1,_mphi01,_m1phi0]);
-  faces[7] = new THREE.BufferGeometry().setFromPoints([_mphi0m1,_m1mphi0,_mphi01]);
-  faces[8] = new THREE.BufferGeometry().setFromPoints([_0m1mphi,_phi0m1,_1mphi0]);
-  faces[9] = new THREE.BufferGeometry().setFromPoints([_phi01,_1mphi0,_phi0m1]);
-  faces[10] = new THREE.BufferGeometry().setFromPoints([_phi01,_0m1phi,_1mphi0]);
-  faces[11] = new THREE.BufferGeometry().setFromPoints([_phi01,_phi0m1,_1phi0]);
-  faces[12] = new THREE.BufferGeometry().setFromPoints([_phi0m1,_01mphi,_1phi0]);
-  faces[13] = new THREE.BufferGeometry().setFromPoints([_m1phi0,_1phi0,_01mphi]);
-  faces[14] = new THREE.BufferGeometry().setFromPoints([_m1phi0,_01phi,_1phi0]);
-  faces[15] = new THREE.BufferGeometry().setFromPoints([_phi01,_1phi0,_01phi]);
-  faces[16] = new THREE.BufferGeometry().setFromPoints([_m1phi0,_mphi01,_01phi]);
-  faces[17] = new THREE.BufferGeometry().setFromPoints([_0m1phi,_01phi,_mphi01]);
-  faces[18] = new THREE.BufferGeometry().setFromPoints([_0m1phi,_mphi01,_m1mphi0]);
-  faces[19] = new THREE.BufferGeometry().setFromPoints([_0m1phi,_phi01,_01phi]);
+  faces[0] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1phi,_m1mphi0,_1mphi0]), []);
+  faces[1] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1mphi,_1mphi0,_m1mphi0]), []);
+  faces[2] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1mphi,_m1mphi0,_mphi0m1]), []);
+  faces[3] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1mphi,_mphi0m1,_01mphi]), []);
+  faces[4] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1mphi,_01mphi,_phi0m1]), []);
+  faces[5] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_mphi0m1,_m1phi0,_01mphi]), []);
+  faces[6] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_mphi0m1,_mphi01,_m1phi0]), []);
+  faces[7] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_mphi0m1,_m1mphi0,_mphi01]), []);
+  faces[8] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1mphi,_phi0m1,_1mphi0]), []);
+  faces[9] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_phi01,_1mphi0,_phi0m1]), []);
+  faces[10] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_phi01,_0m1phi,_1mphi0]), []);
+  faces[11] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_phi01,_phi0m1,_1phi0]), []);
+  faces[12] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_phi0m1,_01mphi,_1phi0]), []);
+  faces[13] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_m1phi0,_1phi0,_01mphi]), []);
+  faces[14] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_m1phi0,_01phi,_1phi0]), []);
+  faces[15] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_phi01,_1phi0,_01phi]), []);
+  faces[16] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_m1phi0,_mphi01,_01phi]), []);
+  faces[17] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1phi,_01phi,_mphi01]), []);
+  faces[18] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1phi,_mphi01,_m1mphi0]), []);
+  faces[19] = useMemo(() => new THREE.BufferGeometry().setFromPoints([_0m1phi,_phi01,_01phi]), []);
+
+  const bufferAttributeForUVs = useMemo(() => new THREE.BufferAttribute( new Float32Array( uvs ), 2 ), []);
 
   for(var i=0; i< faces.length; i++){
-    faces[i].setAttribute( 'uv', new THREE.BufferAttribute( new Float32Array( uvs ), 2 ) );
+    faces[i].setAttribute( 'uv', bufferAttributeForUVs );
   }
 
   const mats = []
-  //const colors = useLoader(THREE.TextureLoader, "grad2.png");
   const colors = useMemo(() => new THREE.TextureLoader().load('grad2.png'), [])
 
+  var n = 0;
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
+  mats[n++] = useMemo(() => new THREE.MeshBasicMaterial(), []);
 
   for(i=0; i< faces.length; i++){
-    mats[i] = new THREE.MeshBasicMaterial()
     mats[i].transparent = true
     mats[i].side = THREE.DoubleSide
     mats[i].map = colors;
